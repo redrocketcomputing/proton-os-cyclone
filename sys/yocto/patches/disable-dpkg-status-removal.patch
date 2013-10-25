@@ -1,0 +1,13 @@
+diff --git a/meta/classes/rootfs_deb.bbclass b/meta/classes/rootfs_deb.bbclass
+index b1c52f9..b741596 100644
+--- a/meta/classes/rootfs_deb.bbclass
++++ b/meta/classes/rootfs_deb.bbclass
+@@ -120,7 +120,7 @@ save_postinsts () {
+ 
+ remove_packaging_data_files() {
+ 	rm -rf ${IMAGE_ROOTFS}${opkglibdir}
+-	rm -rf ${IMAGE_ROOTFS}/var/lib/dpkg/
++#	rm -rf ${IMAGE_ROOTFS}/var/lib/dpkg/
+ }
+ 
+ rootfs_install_packages() {
