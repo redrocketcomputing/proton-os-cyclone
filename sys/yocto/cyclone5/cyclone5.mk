@@ -29,17 +29,34 @@ endif
 SOURCE_PATH := ${CURDIR}
 BUILD_PATH := $(subst ${PROJECT_ROOT},${BUILD_ROOT},${SOURCE_PATH})
 
-all: ${BUILD_PATH}
-	
-clean:
+all: ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
+#	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build virtual/kernel virtual/bootloader altera-image meta-ide-support adt-installer meta-toolchain
+
+clean:  ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
+	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build -c clean
 
 distclean:
 	rm -rf ${BUILD_PATH}
 
-${BUILD_PATH}:
+${BUILD_PATH}/poky/LICENSE:
 	mkdir -p ${BUILD_PATH}
-	cd ${BUILD_PATH} && git clone ${REPOSITORY_ROOT}/poky .
-	cd ${BUILD_PATH} && git clone ${REPOSITORY_ROOT}/meta-altera
-	cd ${BUILD_PATH} && git clone ${REPOSITORY_ROOT}/meta-linaro
+	git clone ${REPOSITORY_ROOT}/poky ${BUILD_PATH}/poky
+	cd ${BUILD_PATH}/poky && patch -p 1 < ${SOURCE_PATH}/../patches/disable-dpkg-status-removal.patch
+
+${BUILD_PATH}/poky/meta-altera/README.md: ${BUILD_PATH}/poky/LICENSE
+	git clone ${REPOSITORY_ROOT}/meta-altera ${BUILD_PATH}/poky/meta-altera
+
+${BUILD_PATH}/poky/meta-linaro/README: ${BUILD_PATH}/poky/LICENSE
+	git clone ${REPOSITORY_ROOT}/meta-linaro ${BUILD_PATH}/poky/meta-linaro
+
+${BUILD_PATH}/build/conf/bblayers.conf: ${SOURCE_PATH}/conf/template-bblayers.conf ${BUILD_PATH}/poky/meta-linaro/README ${BUILD_PATH}/poky/meta-altera/README.md
+	mkdir -p ${BUILD_PATH}/build/conf
+	sed 's:##BUILDPATH##:${BUILD_PATH}/poky:g' ${SOURCE_PATH}/conf/template-bblayers.conf > ${BUILD_PATH}/build/conf/bblayers.conf
+
+${BUILD_PATH}/build/conf/local.conf: ${SOURCE_PATH}/conf/template-local.conf ${BUILD_PATH}/poky/meta-linaro/README ${BUILD_PATH}/poky/meta-altera/README.md
+	mkdir -p ${BUILD_PATH}/build/conf
+	sed 's:##NPROCESSORS##:$(shell grep -c processor /proc/cpuinfo):g' ${SOURCE_PATH}/conf/template-local.conf > ${BUILD_PATH}/build/conf/local.conf
+
+
 
 

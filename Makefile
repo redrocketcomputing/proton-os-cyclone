@@ -21,15 +21,15 @@
 
 EXCLUDEGOALS = distclean realclean update $(wildcard ${REPOSITORY_ROOT}/*.git) tools
 
-export PROJECT_ROOT ?= ${WORKSPACE}
-export REPOSITORY_ROOT ?= ${WORKSPACE}/repositories
-export TOOLS_ROOT ?= ${WORKSPACE}/local
-export IMAGE_ROOT ?= ${WORKSPACE}/images
-export BUILD_ROOT ?= ${WORKSPACE}/build
-export CROSS_ROOT ?= ${WORKSPACE}/rootfs
+export PROJECT_ROOT ?= ${CURDIR}
+export REPOSITORY_ROOT ?= ${PROJECT_ROOT}/repositories
+export TOOLS_ROOT ?= ${PROJECT_ROOT}/local
+export IMAGE_ROOT ?= ${PROJECT_ROOT}/images
+export BUILD_ROOT ?= ${PROJECT_ROOT}/build
+export CROSS_ROOT ?= ${PROJECT_ROOT}/rootfs
 export TARGET_VERSION ?= trunk
 
-export MKSUPPORT_PATH := ${CURDIR}/tools/mksupport
+export MKSUPPORT_PATH := ${PROJECT_ROOT}/tools/mksupport
 export MKTARGETS := ${MKSUPPORT_PATH}/targets.mk
 
 include ${MKTARGETS}

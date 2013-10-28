@@ -1,5 +1,7 @@
 targets: sys
 
+sys: ${REPOSITORY_ROOT}
+
 #targets: ${IMAGE_ROOT}/clang-${TARGET_VERSION}.tar.bz2
 
 #${IMAGE_ROOT}/clang-${TARGET_VERSION}.tar.bz2: ${REPOSITORY_ROOT} compiler
@@ -7,6 +9,6 @@ targets: sys
 #	mkdir -p ${IMAGE_ROOT}
 #	tar -cvj --exclude=src --exclude=tmp --exclude=lib/c++ -f ${IMAGE_ROOT}/clang-${TARGET_VERSION}.tar.bz2 -C ${BUILD_ROOT}/compiler/final .
 
-#${REPOSITORY_ROOT}:
-#	mkdir -p ${REPOSITORY_ROOT}
-#	./tools/scripts/fetch-external-projects
+${REPOSITORY_ROOT}:
+	mkdir -p ${REPOSITORY_ROOT}
+	${PROJECT_ROOT}/tools/scripts/fetch-external-projects
