@@ -30,7 +30,7 @@ SOURCE_PATH := ${CURDIR}
 BUILD_PATH := $(subst ${PROJECT_ROOT},${BUILD_ROOT},${SOURCE_PATH})
 
 all: ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
-#	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build virtual/kernel virtual/bootloader altera-image meta-ide-support adt-installer meta-toolchain
+	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build virtual/kernel virtual/bootloader altera-image meta-ide-support adt-installer meta-toolchain
 
 clean:  ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
 	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build -c clean
