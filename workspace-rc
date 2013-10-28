@@ -3,7 +3,7 @@ export REPOSITORY_ROOT=$WORKSPACE/repositories
 export TOOLS_ROOT=$WORKSPACE/local
 export IMAGE_ROOT=$WORKSPACE/images
 export BUILD_ROOT=$WORKSPACE/build
-export CROSS_ROOT ?= ${WORKSPACE}/rootfs
+export CROSS_ROOT=${WORKSPACE}/rootfs
 
 export PATH=$PATH:$WORKSPACE/$TOOLS_ROOT/bin
 
