@@ -1,0 +1,26 @@
+diff --git a/meta/classes/populate_sdk_base.bbclass b/meta/classes/populate_sdk_base.bbclass
+index b7ea851..681b179 100644
+--- a/meta/classes/populate_sdk_base.bbclass
++++ b/meta/classes/populate_sdk_base.bbclass
+@@ -3,7 +3,7 @@ inherit populate_sdk_${IMAGE_PKGTYPE}
+ 
+ SDK_DIR = "${WORKDIR}/sdk"
+ SDK_OUTPUT = "${SDK_DIR}/image"
+-SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
++SDK_DEPLOY = "${DEPLOY_DIR}/sdk"
+ 
+ SDKTARGETSYSROOT = "${SDKPATH}/sysroots/${REAL_MULTIMACH_TARGET_SYS}"
+ 
+diff --git a/meta/recipes-devtools/installer/adt-installer_1.0.bb b/meta/recipes-devtools/installer/adt-installer_1.0.bb
+index 88650ae..d0b2e78 100644
+--- a/meta/recipes-devtools/installer/adt-installer_1.0.bb
++++ b/meta/recipes-devtools/installer/adt-installer_1.0.bb
+@@ -30,7 +30,7 @@ PACKAGES = ""
+ 
+ PR = "r11"
+ 
+-ADT_DEPLOY = "${TMPDIR}/deploy/sdk/"
++ADT_DEPLOY = "${DEPLOY_DIR}/sdk/"
+ ADT_DIR = "${WORKDIR}/adt-installer/"
+ YOCTOADT_VERSION = "${SDK_VERSION}"
+ S = "${WORKDIR}/trunk"
