@@ -47,7 +47,7 @@ distclean:
 
 .PHONY: realclean
 realclean: distclean
-	rm -rf ${REPOSITORY_ROOT}
+	rm -rf ${REPOSITORY_ROOT} ${PROJECT_ROOT}/downloads
 
 debug:
 	@echo "REPOSITORY_ROOT=${REPOSITORY_ROOT}"

@@ -33,7 +33,7 @@ all: ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
 	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build linux u-boot altera-image meta-ide-support adt-installer meta-toolchain
 
 clean:  ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
-	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build -c clean
+	rm -rf ${BUILD_PATH}/build/tmp
 
 distclean:
 	rm -rf ${BUILD_PATH}
@@ -58,6 +58,7 @@ ${BUILD_PATH}/build/conf/local.conf: ${SOURCE_PATH}/conf/template-local.conf ${B
 	mkdir -p ${BUILD_PATH}/build/conf
 	sed -e 's:##NPROCESSORS##:$(shell grep -c processor /proc/cpuinfo):g' \
 	    -e 's:##DOWNLOADPATH##:${PROJECT_ROOT}/downloads:g' \
+	    -e 's:##DEPLOYPATH##:${PROJECT_ROOT}/images/:g' \
 	    ${SOURCE_PATH}/conf/template-local.conf > ${BUILD_PATH}/build/conf/local.conf
 
 
