@@ -2,3 +2,7 @@ build/
 tmp/
 repositories/
 downloads/
+images/
+deb/
+sdk/
+licenses/
