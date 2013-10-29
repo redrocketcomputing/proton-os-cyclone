@@ -20,6 +20,8 @@
 #
 
 export PATCH_PATH=${CURDIR}/patches
+export INSTALL_PATH=${IMAGE_ROOT}/yocto
+export DOWNLOAD_PATH=${REPOSITORY_ROOT}/sources
 
 include ${MKTARGETS}
 

@@ -31,6 +31,7 @@ BUILD_PATH := $(subst ${PROJECT_ROOT},${BUILD_ROOT},${SOURCE_PATH})
 
 all: ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
 	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build linux u-boot altera-image meta-ide-support adt-installer meta-toolchain
+	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build -c populate_sdk altera-image 
 
 clean:  ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
 	rm -rf ${BUILD_PATH}/build/tmp
@@ -41,7 +42,7 @@ distclean:
 ${BUILD_PATH}/poky/LICENSE:
 	mkdir -p ${BUILD_PATH}
 	git clone ${REPOSITORY_ROOT}/poky ${BUILD_PATH}/poky
-	cd ${BUILD_PATH}/poky && git checkout dora-10.0.0
+	cd ${BUILD_PATH}/poky && git checkout dora
 	cd ${BUILD_PATH}/poky && patch -p 1 < ${SOURCE_PATH}/../patches/disable-dpkg-status-removal.patch
 	cd ${BUILD_PATH}/poky && patch -p 1 < ${SOURCE_PATH}/../patches/enable-deploy-dir-for-sdk.patch
 
@@ -58,8 +59,8 @@ ${BUILD_PATH}/build/conf/bblayers.conf: ${SOURCE_PATH}/conf/template-bblayers.co
 ${BUILD_PATH}/build/conf/local.conf: ${SOURCE_PATH}/conf/template-local.conf ${BUILD_PATH}/poky/meta-linaro/README ${BUILD_PATH}/poky/meta-altera/README.md
 	mkdir -p ${BUILD_PATH}/build/conf
 	sed -e 's:##NPROCESSORS##:$(shell grep -c processor /proc/cpuinfo):g' \
-	    -e 's:##DOWNLOADPATH##:${PROJECT_ROOT}/downloads:g' \
-	    -e 's:##DEPLOYPATH##:${PROJECT_ROOT}:g' \
+	    -e 's:##DOWNLOADPATH##:${DOWNLOAD_PATH}:g' \
+	    -e 's:##DEPLOYPATH##:${INSTALL_PATH}:g' \
 	    ${SOURCE_PATH}/conf/template-local.conf > ${BUILD_PATH}/build/conf/local.conf
 
 
