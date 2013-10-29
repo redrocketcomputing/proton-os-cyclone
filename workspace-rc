@@ -8,5 +8,13 @@ export CROSS_ROOT=${WORKSPACE}/rootfs
 export PATH=$PATH:$WORKSPACE/$TOOLS_ROOT/bin
 
 alias home='cd $WORKSPACE'
-alias ide='eclipse $WORKSPACE/eclipse&'
-alias edit='gedit'
+
+if [[ "$(which eclipse)"  != "" ]]; then
+	alias ide='eclipse $WORKSPACE/eclipse&'
+fi
+
+if [[ "$(which gedit)" != "" ]]; then
+	alias edit='gedit'
+else
+	alias edit='nano'
+fi

@@ -20,9 +20,13 @@
 # Author: Stephen Street
 #
 
-export WORKSPACE=$(readlink -e $1)
+if [ -n "$1" ]; then
+	export WORKSPACE=$(readlink -e $1)
+else
+	export WORKSPACE=$(readlink -e $PWD)
+fi
 
-pushd $1 &> /dev/null
+pushd $WORKSPACE &> /dev/null
 
 echo "workspace = $WORKSPACE"
 if [ ! -e "workspace-rc" ]; then
