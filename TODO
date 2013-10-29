@@ -1,0 +1,1 @@
+1) Trim images size by removing PMS - ROOTFS_POSTPROCESS_COMMAND += "remove_packaging_data_files ;
