@@ -30,7 +30,7 @@ SOURCE_PATH := ${CURDIR}
 BUILD_PATH := $(subst ${PROJECT_ROOT},${BUILD_ROOT},${SOURCE_PATH})
 
 all: ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
-	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build virtual/kernel virtual/bootloader altera-image meta-ide-support adt-installer meta-toolchain
+	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build linux u-boot altera-image meta-ide-support adt-installer meta-toolchain
 
 clean:  ${BUILD_PATH}/build/conf/bblayers.conf ${BUILD_PATH}/build/conf/local.conf
 	${SOURCE_PATH}/scripts/run-build ${BUILD_PATH}/poky/oe-init-build-env ${BUILD_PATH}/build -c clean
@@ -41,6 +41,7 @@ distclean:
 ${BUILD_PATH}/poky/LICENSE:
 	mkdir -p ${BUILD_PATH}
 	git clone ${REPOSITORY_ROOT}/poky ${BUILD_PATH}/poky
+	cd ${BUILD_PATH}/poky && git checkout dora-10.0.0
 	cd ${BUILD_PATH}/poky && patch -p 1 < ${SOURCE_PATH}/../patches/disable-dpkg-status-removal.patch
 
 ${BUILD_PATH}/poky/meta-altera/README.md: ${BUILD_PATH}/poky/LICENSE
@@ -55,7 +56,9 @@ ${BUILD_PATH}/build/conf/bblayers.conf: ${SOURCE_PATH}/conf/template-bblayers.co
 
 ${BUILD_PATH}/build/conf/local.conf: ${SOURCE_PATH}/conf/template-local.conf ${BUILD_PATH}/poky/meta-linaro/README ${BUILD_PATH}/poky/meta-altera/README.md
 	mkdir -p ${BUILD_PATH}/build/conf
-	sed 's:##NPROCESSORS##:$(shell grep -c processor /proc/cpuinfo):g' ${SOURCE_PATH}/conf/template-local.conf > ${BUILD_PATH}/build/conf/local.conf
+	sed -e 's:##NPROCESSORS##:$(shell grep -c processor /proc/cpuinfo):g' \
+	    -e 's:##DOWNLOAD_PATH##:${PROJECT_ROOT}/downloads:g' \
+	    ${SOURCE_PATH}/conf/template-local.conf > ${BUILD_PATH}/build/conf/local.conf
 
 
 
