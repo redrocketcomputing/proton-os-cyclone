@@ -43,7 +43,7 @@ $(wildcard ${REPOSITORY_ROOT}/*.git):
 
 .PHONY: distclean
 distclean:
-	rm -rf ${BUILD_ROOT} ${CROSS_ROOT} ${IMAGE_ROOT} ${TOOLS_ROOT}
+	rm -rf ${BUILD_ROOT} ${CROSS_ROOT} ${IMAGE_ROOT} ${TOOLS_ROOT} ${PROJECT_ROOT}/deb ${PROJECT_ROOT}/licenses ${PROJECT_ROOT}/sdk
 
 .PHONY: realclean
 realclean: distclean
