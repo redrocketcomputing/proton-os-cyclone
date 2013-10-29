@@ -57,7 +57,7 @@ ${BUILD_PATH}/build/conf/bblayers.conf: ${SOURCE_PATH}/conf/template-bblayers.co
 ${BUILD_PATH}/build/conf/local.conf: ${SOURCE_PATH}/conf/template-local.conf ${BUILD_PATH}/poky/meta-linaro/README ${BUILD_PATH}/poky/meta-altera/README.md
 	mkdir -p ${BUILD_PATH}/build/conf
 	sed -e 's:##NPROCESSORS##:$(shell grep -c processor /proc/cpuinfo):g' \
-	    -e 's:##DOWNLOAD_PATH##:${PROJECT_ROOT}/downloads:g' \
+	    -e 's:##DOWNLOADPATH##:${PROJECT_ROOT}/downloads:g' \
 	    ${SOURCE_PATH}/conf/template-local.conf > ${BUILD_PATH}/build/conf/local.conf
 
 
