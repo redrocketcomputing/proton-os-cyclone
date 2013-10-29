@@ -19,5 +19,7 @@
 # Author: Stephen Street (stephen@redrocketcomputing.com)
 #
 
+export PATCH_PATH=${CURDIR}/patches
+
 include ${MKTARGETS}
 
