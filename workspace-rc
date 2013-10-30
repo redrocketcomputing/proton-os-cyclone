@@ -5,7 +5,7 @@ export IMAGE_ROOT=$WORKSPACE/images
 export BUILD_ROOT=$WORKSPACE/build
 export CROSS_ROOT=${WORKSPACE}/rootfs
 
-export PATH=$PATH:$WORKSPACE/$TOOLS_ROOT/bin
+export PATH=$PATH:$TOOLS_ROOT/bin
 
 alias home='cd $WORKSPACE'
 
